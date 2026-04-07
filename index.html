@@ -1,0 +1,1158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>KuaiSearch: A Large-Scale E-Commerce Search Dataset</title>
+  <link rel="stylesheet" href="static/css/style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+<!-- ========== NAVIGATION ========== -->
+<nav id="navbar">
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">
+      <span class="logo-icon">🔍</span>
+      <span>KuaiSearch</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#abstract">Abstract</a></li>
+      <li><a href="#dataset">Dataset</a></li>
+      <li><a href="#statistics">Statistics</a></li>
+      <li><a href="#analysis">Analysis</a></li>
+      <li><a href="#benchmark">Benchmark</a></li>
+      <li><a href="#bibtex">BibTeX</a></li>
+    </ul>
+    <a href="https://github.com/benchen4395/KuaiSearch" target="_blank" class="btn btn-github">
+      <svg viewBox="0 0 16 16" width="18" height="18" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+      GitHub
+    </a>
+  </div>
+</nav>
+
+<!-- ========== HERO ========== -->
+<header id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-particles" id="particles"></div>
+  <div class="container hero-content">
+    <!-- <div class="conference-badge">ACM SIGIR 2026</div>-->
+    <h1 class="hero-title">
+      KuaiSearch
+      <span class="title-sub">A Large-Scale E-Commerce Search Dataset<br/>for Recall, Ranking, and Relevance</span>
+    </h1>
+
+    <div class="authors">
+      <div class="author-group">
+        <div class="author">
+          <span class="author-name">Yupeng Li<sup>*†</sup></span>
+          <span class="author-affil">USTC</span>
+        </div>
+        <div class="author">
+          <span class="author-name">Ben Chen<sup>*</sup></span>
+          <span class="author-affil">Kuaishou Technology</span>
+        </div>
+        <div class="author">
+          <span class="author-name">Mingyue Cheng<sup>‡</sup></span>
+          <span class="author-affil">USTC</span>
+        </div>
+        <div class="author">
+          <span class="author-name">Zhiding Liu</span>
+          <span class="author-affil">USTC</span>
+        </div>
+        <div class="author">
+          <span class="author-name">Xuxin Zhang</span>
+          <span class="author-affil">Kuaishou Technology</span>
+        </div>
+        <div class="author">
+          <span class="author-name">Chenyi Lei<sup>‡</sup></span>
+          <span class="author-affil">Kuaishou Technology</span>
+        </div>
+        <div class="author">
+          <span class="author-name">Wenwu Ou</span>
+          <span class="author-affil">Kuaishou Technology</span>
+        </div>
+      </div>
+      <div class="author-note">
+        <sup>*</sup> Equal Contribution &nbsp;
+        <sup>†</sup> Work done during internship at Kuaishou Technology &nbsp;
+        <sup>‡</sup> Corresponding author
+      </div>
+    </div>
+
+    <div class="hero-actions">
+      <a href="https://arxiv.org/abs/2602.11518" target="_blank" class="btn btn-primary">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+        Paper (arXiv)
+      </a>
+      <a href="https://github.com/benchen4395/KuaiSearch" target="_blank" class="btn btn-secondary">
+        <svg viewBox="0 0 16 16" width="18" height="18" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+        Dataset (GitHub)
+      </a>
+    </div>
+
+    <!-- Key Stats Banner -->
+    <div class="hero-stats">
+      <div class="stat-card">
+        <div class="stat-icon">👥</div>
+        <div class="stat-value">331,930</div>
+        <div class="stat-label">Users</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">📦</div>
+        <div class="stat-value">18.6M</div>
+        <div class="stat-label">Products</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">🔎</div>
+        <div class="stat-value">2.57M</div>
+        <div class="stat-label">Queries</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">⭐</div>
+        <div class="stat-value">81.4M</div>
+        <div class="stat-label">Ranking Records</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">📝</div>
+        <div class="stat-value">46,422</div>
+        <div class="stat-label">Relevance Pairs</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ========== ABSTRACT ========== -->
+<section id="abstract" class="section section-light">
+  <div class="container">
+    <h2 class="section-title">📖 Abstract</h2>
+    <div class="abstract-box">
+      <p>
+        E-commerce search serves as a central interface, connecting user demands with massive product inventories and plays a vital role in our daily lives. However, in real-world applications, it faces challenges, including <strong>highly ambiguous queries</strong>, <strong>noisy product texts</strong> with weak semantic order, and <strong>diverse user preferences</strong>, all of which make it difficult to accurately capture user intent and fine-grained product semantics.
+      </p>
+      <p>
+        Nevertheless, existing e-commerce search datasets still suffer from notable limitations: queries are often heuristically constructed, cold-start users and long-tail products are filtered, query and product texts are anonymized, and datasets cover only a single stage of the search pipeline.
+      </p>
+      <p>
+        To address these challenges, we construct and release <strong>KuaiSearch</strong>—to the best of our knowledge, the <strong>largest e-commerce search dataset currently available</strong>. KuaiSearch is built upon real user search interactions from the Kuaishou platform, preserving authentic user queries and natural-language product texts, covering cold-start users and long-tail products, and spanning three key stages of the search pipeline: <strong>recall, ranking, and relevance judgment</strong>.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ========== SEARCH ENTRIES ========== -->
+<section id="search-entries" class="section section-dark">
+  <div class="container">
+    <h2 class="section-title light">🏪 Kuaishou Search Entries</h2>
+    <p class="section-subtitle light">KuaiSearch covers the three primary product search entry points on the Kuaishou platform</p>
+    <div class="entries-grid">
+      <div class="entry-card">
+        <div class="entry-img-wrap">
+          <img src="homepage.png" alt="Homepage Search" loading="lazy" />
+        </div>
+        <div class="entry-info">
+          <h3>Homepage</h3>
+          <p>The main entry point where users initiate product searches directly from the platform homepage, accounting for <strong>44.86%</strong> of all search requests.</p>
+          <div class="entry-badge">SessCTR: 51.51%</div>
+        </div>
+      </div>
+      <div class="entry-card">
+        <div class="entry-img-wrap">
+          <img src="mall.png" alt="Mall Search" loading="lazy" />
+        </div>
+        <div class="entry-info">
+          <h3>Mall</h3>
+          <p>The dedicated e-commerce mall page, representing the largest proportion of searches at <strong>49.20%</strong> with higher engagement metrics.</p>
+          <div class="entry-badge badge-green">SessCTR: 53.30%</div>
+        </div>
+      </div>
+      <div class="entry-card">
+        <div class="entry-img-wrap">
+          <img src="detail.png" alt="Detail Page Search" loading="lazy" />
+        </div>
+        <div class="entry-info">
+          <h3>Detail Page</h3>
+          <p>Search triggered from a product detail page, typically for comparison or exploration, achieving the <strong>highest AvgClick</strong> of 1.33 per session.</p>
+          <div class="entry-badge badge-purple">SessCTR: 56.02%</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== DATASET OVERVIEW ========== -->
+<section id="dataset" class="section section-light">
+  <div class="container">
+    <h2 class="section-title">🗂️ Dataset Overview</h2>
+    <p class="section-subtitle">KuaiSearch covers three core components of the industrial e-commerce search pipeline</p>
+
+    <div class="pipeline-wrap">
+      <div class="pipeline">
+        <div class="pipeline-stage">
+          <div class="stage-icon recall-color">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          </div>
+          <div class="stage-name">Recall</div>
+          <div class="stage-desc">Candidate retrieval from large product corpus</div>
+          <div class="stage-size">2,574,949 sessions</div>
+        </div>
+        <div class="pipeline-arrow">→</div>
+        <div class="pipeline-stage">
+          <div class="stage-icon ranking-color">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+          </div>
+          <div class="stage-name">Ranking</div>
+          <div class="stage-desc">Re-ranking with rich features for CTR prediction</div>
+          <div class="stage-size">81,401,477 records</div>
+        </div>
+        <div class="pipeline-arrow">→</div>
+        <div class="pipeline-stage">
+          <div class="stage-icon relevance-color">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+          </div>
+          <div class="stage-name">Relevance</div>
+          <div class="stage-desc">Fine-grained human relevance annotation</div>
+          <div class="stage-size">46,422 query-item pairs</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Data Tables -->
+    <div class="tables-grid">
+      <div class="table-card">
+        <h3>📊 Field Descriptions</h3>
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Table</th>
+              <th>Size</th>
+              <th>Key Fields</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="tag tag-blue">User</span></td>
+              <td>331,930</td>
+              <td>user_id, gender, age, location</td>
+            </tr>
+            <tr>
+              <td><span class="tag tag-green">Item</span></td>
+              <td>18,605,582</td>
+              <td>item_id, title, brand, seller, category (L1/L2/L3)</td>
+            </tr>
+            <tr>
+              <td><span class="tag tag-orange">Recall</span></td>
+              <td>2,574,949</td>
+              <td>user_id, session_id, query, impressed/clicked/purchased item ids</td>
+            </tr>
+            <tr>
+              <td><span class="tag tag-red">Ranking</span></td>
+              <td>81,401,477</td>
+              <td>user/item statistical features, behavior history, is_clicked, is_purchased</td>
+            </tr>
+            <tr>
+              <td><span class="tag tag-purple">Relevance</span></td>
+              <td>46,422</td>
+              <td>query, title, brand, seller, attribute, relevance score (0–3)</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="table-card">
+        <h3>📈 Dataset Comparison</h3>
+        <table class="data-table comparison-table">
+          <thead>
+            <tr>
+              <th>Dataset</th>
+              <th># Users</th>
+              <th># Items</th>
+              <th># Queries</th>
+              <th>Text</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Amazon</td>
+              <td>192,403</td>
+              <td>63,001</td>
+              <td>3,221<sup>†</sup></td>
+              <td><span class="badge-text">Plain</span></td>
+            </tr>
+            <tr>
+              <td>JDsearch</td>
+              <td>173,831</td>
+              <td>12,872,736</td>
+              <td>171,728</td>
+              <td><span class="badge-anon">Anon.</span></td>
+            </tr>
+            <tr class="highlight-row">
+              <td><strong>KuaiSearch</strong></td>
+              <td><strong>331,930</strong></td>
+              <td><strong>18,605,582</strong></td>
+              <td><strong>2,574,949</strong></td>
+              <td><span class="badge-text">Plain</span></td>
+            </tr>
+          </tbody>
+        </table>
+        <p class="table-note"><sup>†</sup> Queries in the Amazon dataset are manually constructed.</p>
+        <p class="table-note">KuaiSearch achieves <strong>1.72×</strong> more users, <strong>1.45×</strong> more items, and <strong>15×</strong> more queries than the second-largest dataset.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== ANALYSIS ========== -->
+<section id="analysis" class="section section-dark">
+  <div class="container">
+    <h2 class="section-title light">📊 Data Analysis</h2>
+    <p class="section-subtitle light">Comprehensive analysis of KuaiSearch from multiple perspectives</p>
+
+    <!-- Distribution Figures -->
+    <div class="figures-grid">
+      <div class="figure-card">
+        <img src="fig1_product_inter_freq.png" alt="Product Interaction Frequency Distribution" loading="lazy" />
+        <div class="figure-caption">
+          <strong>(a)</strong> Product interaction frequency follows a clear <em>power-law distribution</em>, demonstrating the long-tail nature of real-world e-commerce with vast cold products and a small fraction of popular items.
+        </div>
+      </div>
+      <div class="figure-card">
+        <img src="fig2_user_history_len_sessions.png" alt="User History Length Distribution" loading="lazy" />
+        <div class="figure-caption">
+          <strong>(b)</strong> User search frequency distribution reveals substantial <em>user heterogeneity</em>: from cold-start users with minimal history to power users with extensive shopping behaviors.
+        </div>
+      </div>
+    </div>
+
+
+
+    <!-- Query Analysis -->
+    <div class="query-analysis-section">
+      <h3 class="subsection-title light">🔎 Query Analysis</h3>
+      <p class="section-subtitle light" style="margin-bottom:28px">Category distribution and engagement metrics by query length</p>
+
+
+
+      <!-- Bottom: Query Length Engagement Visualisation -->
+      <div class="ql-vis-card">
+        <div class="ql-vis-header">
+          <div class="ql-vis-title">Engagement by Query Length</div>
+          <div class="ql-legend">
+            <span class="ql-dot" style="background:#60a5fa"></span><span>Proportion</span>
+            <span class="ql-dot" style="background:#34d399"></span><span>SessCTR</span>
+            <span class="ql-dot" style="background:#f59e0b"></span><span>ItemCTR</span>
+            <span class="ql-dot" style="background:#c084fc"></span><span>AvgClick</span>
+          </div>
+        </div>
+
+        <!-- Row-based visual bars -->
+        <div class="ql-rows">
+
+          <!-- Row: 1-2 -->
+          <div class="ql-row">
+            <div class="ql-row-label">1–2</div>
+            <div class="ql-row-bars">
+              <div class="ql-bar-group">
+                <div class="ql-bar-item">
+                  <div class="ql-bar-track"><div class="ql-bar-fill" style="width:40.3%; background:#60a5fa" data-val="9.86%"></div></div>
+                  <span class="ql-bar-val">9.86%</span>
+                </div>
+                <div class="ql-bar-item">
+                  <div class="ql-bar-track"><div class="ql-bar-fill" style="width:86.5%; background:#34d399" data-val="0.4960"></div></div>
+                  <span class="ql-bar-val">0.4960</span>
+                </div>
+                <div class="ql-bar-item">
+                  <div class="ql-bar-track"><div class="ql-bar-fill" style="width:66.5%; background:#f59e0b" data-val="0.0358"></div></div>
+                  <span class="ql-bar-val">0.0358</span>
+                </div>
+                <div class="ql-bar-item">
+                  <div class="ql-bar-track"><div class="ql-bar-fill" style="width:59.5%; background:#c084fc" data-val="1.06"></div></div>
+                  <span class="ql-bar-val">1.06</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Row: 3-4 -->
+          <div class="ql-row">
+            <div class="ql-row-label">3–4</div>
+            <div class="ql-row-bars">
+              <div class="ql-bar-group">
+                <div class="ql-bar-item">
+                  <div class="ql-bar-track"><div class="ql-bar-fill" style="width:80.5%; background:#60a5fa" data-val="19.68%"></div></div>
+                  <span class="ql-bar-val">19.68%</span>
+                </div>
+                <div class="ql-bar-item">
+                  <div class="ql-bar-track"><div class="ql-bar-fill" style="width:91.3%; background:#34d399" data-val="0.5233"></div></div>
+                  <span class="ql-bar-val">0.5233</span>
+                </div>
+                <div class="ql-bar-item">
+                  <div class="ql-bar-track"><div class="ql-bar-fill best-glow" style="width:100%; background:linear-gradient(90deg,#f59e0b,#fcd34d)" data-val="0.0400"></div></div>
+                  <span class="ql-bar-val best-val">0.0400 🏆</span>
+                </div>
+                <div class="ql-bar-item">
+                  <div class="ql-bar-track"><div class="ql-bar-fill" style="width:63.9%; background:#c084fc" data-val="1.14"></div></div>
+                  <span class="ql-bar-val">1.14</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Row: 5-6 (highlight: most common) -->
+          <div class="ql-row ql-row-peak">
+            <div class="ql-row-label">5–6<span class="ql-peak-badge">Most Common</span></div>
+            <div class="ql-row-bars">
+              <div class="ql-bar-group">
+                <div class="ql-bar-item">
+                  <div class="ql-bar-track"><div class="ql-bar-fill best-glow" style="width:100%; background:linear-gradient(90deg,#3b82f6,#60a5fa)" data-val="24.46%"></div></div>
+                  <span class="ql-bar-val best-val">24.46% 🏆</span>
+                </div>
+                <div class="ql-bar-item">
+                  <div class="ql-bar-track"><div class="ql-bar-fill" style="width:90.1%; background:#34d399" data-val="0.5163"></div></div>
+                  <span class="ql-bar-val">0.5163</span>
+                </div>
+                <div class="ql-bar-item">
+                  <div class="ql-bar-track"><div class="ql-bar-fill" style="width:96.5%; background:#f59e0b" data-val="0.0386"></div></div>
+                  <span class="ql-bar-val">0.0386</span>
+                </div>
+                <div class="ql-bar-item">
+                  <div class="ql-bar-track"><div class="ql-bar-fill" style="width:65.7%; background:#c084fc" data-val="1.17"></div></div>
+                  <span class="ql-bar-val">1.17</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Row: 7-8 -->
+          <div class="ql-row ql-row-peak">
+            <div class="ql-row-label">7–8</div>
+            <div class="ql-row-bars">
+              <div class="ql-bar-group">
+                <div class="ql-bar-item">
+                  <div class="ql-bar-track"><div class="ql-bar-fill" style="width:82.7%; background:#60a5fa" data-val="20.22%"></div></div>
+                  <span class="ql-bar-val">20.22%</span>
+                </div>
+                <div class="ql-bar-item">
+                  <div class="ql-bar-track"><div class="ql-bar-fill" style="width:88.7%; background:#34d399" data-val="0.5084"></div></div>
+                  <span class="ql-bar-val">0.5084</span>
+                </div>
+                <div class="ql-bar-item">
+                  <div class="ql-bar-track"><div class="ql-bar-fill" style="width:93.5%; background:#f59e0b" data-val="0.0374"></div></div>
+                  <span class="ql-bar-val">0.0374</span>
+                </div>
+                <div class="ql-bar-item">
+                  <div class="ql-bar-track"><div class="ql-bar-fill" style="width:66.9%; background:#c084fc" data-val="1.19"></div></div>
+                  <span class="ql-bar-val">1.19</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Row: 9-10 -->
+          <div class="ql-row">
+            <div class="ql-row-label">9–10</div>
+            <div class="ql-row-bars">
+              <div class="ql-bar-group">
+                <div class="ql-bar-item">
+                  <div class="ql-bar-track"><div class="ql-bar-fill" style="width:48.9%; background:#60a5fa" data-val="11.96%"></div></div>
+                  <span class="ql-bar-val">11.96%</span>
+                </div>
+                <div class="ql-bar-item">
+                  <div class="ql-bar-track"><div class="ql-bar-fill" style="width:88.9%; background:#34d399" data-val="0.5096"></div></div>
+                  <span class="ql-bar-val">0.5096</span>
+                </div>
+                <div class="ql-bar-item">
+                  <div class="ql-bar-track"><div class="ql-bar-fill" style="width:94.0%; background:#f59e0b" data-val="0.0376"></div></div>
+                  <span class="ql-bar-val">0.0376</span>
+                </div>
+                <div class="ql-bar-item">
+                  <div class="ql-bar-track"><div class="ql-bar-fill" style="width:67.5%; background:#c084fc" data-val="1.20"></div></div>
+                  <span class="ql-bar-val">1.20</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Row: >=10 -->
+          <div class="ql-row">
+            <div class="ql-row-label">≥10</div>
+            <div class="ql-row-bars">
+              <div class="ql-bar-group">
+                <div class="ql-bar-item">
+                  <div class="ql-bar-track"><div class="ql-bar-fill" style="width:56.5%; background:#60a5fa" data-val="13.82%"></div></div>
+                  <span class="ql-bar-val">13.82%</span>
+                </div>
+                <div class="ql-bar-item">
+                  <div class="ql-bar-track"><div class="ql-bar-fill best-glow" style="width:100%; background:linear-gradient(90deg,#059669,#34d399)" data-val="0.5313"></div></div>
+                  <span class="ql-bar-val best-val">0.5313 🏆</span>
+                </div>
+                <div class="ql-bar-item">
+                  <div class="ql-bar-track"><div class="ql-bar-fill" style="width:87.2%; background:#f59e0b" data-val="0.0349"></div></div>
+                  <span class="ql-bar-val">0.0349</span>
+                </div>
+                <div class="ql-bar-item">
+                  <div class="ql-bar-track"><div class="ql-bar-fill best-glow" style="width:100%; background:linear-gradient(90deg,#7c3aed,#c084fc)" data-val="1.33"></div></div>
+                  <span class="ql-bar-val best-val">1.33 🏆</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div><!-- /ql-rows -->
+
+        <p class="ql-insight">
+          <span class="ql-insight-icon">💡</span>
+          Queries of <strong>5–8 characters</strong> account for <strong>44.68%</strong> of all searches (the most common range). Very long queries (≥10 chars) achieve the <strong>highest SessCTR (0.5313)</strong> and <strong>AvgClick (1.33)</strong>, indicating that more specific queries lead to stronger user engagement.
+        </p>
+      </div>  
+
+    </div>
+
+    <!-- Query Categories -->
+    <div class="categories-section">
+      <h3 class="subsection-title light">Query Category Distribution (Top 12)</h3>
+      <div class="categories-grid">
+        <div class="category-item cat-1">
+          <div class="cat-icon">👗</div>
+          <div class="cat-name">Women's Clothing</div>
+          <div class="cat-bar" style="--w:15.4%"></div>
+        </div>
+        <div class="category-item cat-2">
+          <div class="cat-icon">👔</div>
+          <div class="cat-name">Men's Clothing</div>
+          <div class="cat-bar" style="--w:6.8%"></div>
+        </div>
+        <div class="category-item cat-3">
+          <div class="cat-icon">📱</div>
+          <div class="cat-name">Digital Products</div>
+          <div class="cat-bar" style="--w:6.6%"></div>
+        </div>
+        <div class="category-item cat-4">
+          <div class="cat-icon">🏠</div>
+          <div class="cat-name">Home & Living</div>
+          <div class="cat-bar" style="--w:6.4%"></div>
+        </div>
+        <div class="category-item cat-5">
+          <div class="cat-icon">🧦 </div>
+          <div class="cat-name">Underwear & Socks</div>
+          <div class="cat-bar" style="--w:3.8%"></div>
+        </div>
+        <div class="category-item cat-6">
+          <div class="cat-icon">👜</div>
+          <div class="cat-name">Bags& Accessories</div>
+          <div class="cat-bar" style="--w:3.8%"></div>
+        </div>
+        <div class="category-item cat-7">
+          <div class="cat-icon">🥜</div>
+          <div class="cat-name">Snacks & Nuts</div>
+          <div class="cat-bar" style="--w:3.4%"></div>
+        </div>
+        <div class="category-item cat-8">
+          <div class="cat-icon">👠</div>
+          <div class="cat-name">Women's Shoes</div>
+          <div class="cat-bar" style="--w:3.3%"></div>
+        </div>
+        <div class="category-item cat-9">
+          <div class="cat-icon">🧴</div>
+          <div class="cat-name">Personal Care & Cleaning</div>
+          <div class="cat-bar" style="--w:3.1%"></div>
+        </div>
+        <div class="category-item cat-10">
+          <div class="cat-icon">💄</div>
+          <div class="cat-name">Makeup</div>
+          <div class="cat-bar" style="--w:2.7%"></div>
+        </div>
+        <div class="category-item cat-11">
+          <div class="cat-icon">✨ </div>
+          <div class="cat-name">Beauty & Skincare</div>
+          <div class="cat-bar" style="--w:2.5%"></div>
+        </div>
+        <div class="category-item cat-12">
+          <div class="cat-icon">🎣 </div>
+          <div class="cat-name">Outdoor & Fishing Gear</div>
+          <div class="cat-bar" style="--w:2.4%"></div>
+        </div>
+      </div>
+      <p class="chart-note light-note">Queries span approximately 78 fine-grained first-level product categories with a pronounced long-tailed distribution.</p>
+    </div>
+
+    <!-- Relevance Distribution -->
+    <div class="relevance-section">
+      <h3 class="subsection-title light">Relevance Score Distribution</h3>
+      <div class="relevance-grid">
+        <div class="rel-card score-0">
+          <div class="rel-score">Score 0</div>
+          <div class="rel-pct">13.13%</div>
+          <div class="rel-label">Clearly Irrelevant</div>
+          <div class="rel-example">
+            <span class="ex-label">Query:</span> Scent beads
+            <br/><span class="ex-label">Item:</span> Green Pomelo Leaf Aroma Diffuser
+          </div>
+        </div>
+        <div class="rel-card score-1">
+          <div class="rel-score">Score 1</div>
+          <div class="rel-pct">19.03%</div>
+          <div class="rel-label">Weakly Relevant</div>
+          <div class="rel-example">
+            <span class="ex-label">Query:</span> Tibetan tea
+            <br/><span class="ex-label">Item:</span> Berry tea
+          </div>
+        </div>
+        <div class="rel-card score-2">
+          <div class="rel-score">Score 2</div>
+          <div class="rel-pct">33.98%</div>
+          <div class="rel-label">Partially Relevant</div>
+          <div class="rel-example">
+            <span class="ex-label">Query:</span> Cashmere shawl
+            <br/><span class="ex-label">Item:</span> Large fringed shawl
+          </div>
+        </div>
+        <div class="rel-card score-3">
+          <div class="rel-score">Score 3</div>
+          <div class="rel-pct">33.86%</div>
+          <div class="rel-label">Highly Relevant</div>
+          <div class="rel-example">
+            <span class="ex-label">Query:</span> Plus-size top
+            <br/><span class="ex-label">Item:</span> Vintage printed oversized top
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== STATISTICS ========== -->
+<section id="statistics" class="section section-light">
+  <div class="container">
+    <h2 class="section-title">📐 Demographics</h2>
+    <p class="section-subtitle">KuaiSearch contains 331,930 users from more than 62 countries or regions</p>
+
+    <div class="demo-grid">
+      <div class="demo-card">
+        <h3>Gender Distribution</h3>
+        <div class="donut-chart-wrap">
+          <div class="donut-chart">
+            <svg viewBox="0 0 100 100" width="160" height="160">
+              <circle cx="50" cy="50" r="40" fill="none" stroke="#e8ecef" stroke-width="20"/>
+              <!-- Female: 59.34% -->
+              <circle cx="50" cy="50" r="40" fill="none" stroke="#f06292" stroke-width="20"
+                stroke-dasharray="148.65 102.35"
+                stroke-dashoffset="62.8"
+                transform="rotate(-90 50 50)"/>
+              <!-- Male: 40.66% -->
+              <circle cx="50" cy="50" r="40" fill="none" stroke="#64b5f6" stroke-width="20"
+                stroke-dasharray="101.85 149.15"
+                stroke-dashoffset="-85.85"
+                transform="rotate(-90 50 50)"/>
+            </svg>
+            <div class="donut-center"></div>
+          </div>
+          <div class="donut-legend">
+            <div class="legend-item"><span class="dot" style="background:#f06292"></span> Female <strong>59.34%</strong></div>
+            <div class="legend-item"><span class="dot" style="background:#64b5f6"></span> Male <strong>40.66%</strong></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="demo-card">
+        <h3>Age Distribution</h3>
+        <div class="age-bars">
+          <div class="age-row">
+            <span class="age-label">12–17</span>
+            <div class="age-bar-wrap">
+              <div class="age-bar" style="width: 15.31%">
+                <span>15.31%</span>
+              </div>
+            </div>
+          </div>
+          <div class="age-row">
+            <span class="age-label">18–23</span>
+            <div class="age-bar-wrap">
+              <div class="age-bar" style="width: 15.94%">
+                <span>15.94%</span>
+              </div>
+            </div>
+          </div>
+          <div class="age-row">
+            <span class="age-label">24–30</span>
+            <div class="age-bar-wrap">
+              <div class="age-bar" style="width: 11.33%">
+                <span>11.33%</span>
+              </div>
+            </div>
+          </div>
+          <div class="age-row highlight-age">
+            <span class="age-label">31–40</span>
+            <div class="age-bar-wrap">
+              <div class="age-bar age-primary" style="width: 24.96%">
+                <span>24.96%</span>
+              </div>
+            </div>
+          </div>
+          <div class="age-row">
+            <span class="age-label">41–49</span>
+            <div class="age-bar-wrap">
+              <div class="age-bar" style="width: 16.18%">
+                <span>16.18%</span>
+              </div>
+            </div>
+          </div>
+          <div class="age-row">
+            <span class="age-label">50+</span>
+            <div class="age-bar-wrap">
+              <div class="age-bar" style="width: 15.90%">
+                <span>15.90%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <p class="chart-note">Users aged 12–50 comprise <strong>&gt;80%</strong> of the population.</p>
+      </div>
+
+      <div class="demo-card">
+        <h3>Search Entrance Distribution</h3>
+        <div class="entrance-list">
+          <div class="entrance-item">
+            <div class="entrance-info">
+              <span class="entrance-name">Mall</span>
+              <span class="entrance-pct">49.20%</span>
+            </div>
+            <div class="entrance-bar-wrap">
+              <div class="entrance-bar" style="width:49.2%; background: var(--green)"></div>
+            </div>
+          </div>
+          <div class="entrance-item">
+            <div class="entrance-info">
+              <span class="entrance-name">Homepage</span>
+              <span class="entrance-pct">44.86%</span>
+            </div>
+            <div class="entrance-bar-wrap">
+              <div class="entrance-bar" style="width:44.86%; background: var(--blue)"></div>
+            </div>
+          </div>
+          <div class="entrance-item">
+            <div class="entrance-info">
+              <span class="entrance-name">Mall Placeholder</span>
+              <span class="entrance-pct">3.27%</span>
+            </div>
+            <div class="entrance-bar-wrap">
+              <div class="entrance-bar" style="width:32.7%; background: var(--orange)"></div>
+            </div>
+          </div>
+          <div class="entrance-item">
+            <div class="entrance-info">
+              <span class="entrance-name">HP Placeholder</span>
+              <span class="entrance-pct">1.57%</span>
+            </div>
+            <div class="entrance-bar-wrap">
+              <div class="entrance-bar" style="width:15.7%; background: var(--purple)"></div>
+            </div>
+          </div>
+          <div class="entrance-item">
+            <div class="entrance-info">
+              <span class="entrance-name">Commodity Detail</span>
+              <span class="entrance-pct">1.07%</span>
+            </div>
+            <div class="entrance-bar-wrap">
+              <div class="entrance-bar" style="width:10.7%; background: var(--red)"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== BENCHMARK ========== -->
+<section id="benchmark" class="section section-white">
+  <div class="container">
+    <h2 class="section-title">🧪 Benchmark Results</h2>
+    <p class="section-subtitle">Comprehensive evaluation on KuaiSearch-Lite across three search tasks</p>
+
+    <div class="benchmark-tabs">
+      <button class="tab-btn active" data-tab="recall">🔍 Recall</button>
+      <button class="tab-btn" data-tab="ranking">📊 Ranking</button>
+      <button class="tab-btn" data-tab="relevance">✅ Relevance</button>
+    </div>
+
+    <!-- Recall Tab -->
+    <div class="tab-content active" id="tab-recall">
+      <div class="bench-description">
+        <p>Recall task evaluates the ability to retrieve relevant items from a large product corpus. Metrics: <strong>R@K</strong> and <strong>HR@K</strong>.</p>
+      </div>
+      <div class="table-wrap">
+        <table class="bench-table">
+          <thead>
+            <tr>
+              <th>Method</th>
+              <th>Type</th>
+              <th>R@10</th>
+              <th>HR@10</th>
+              <th>R@20</th>
+              <th>HR@20</th>
+              <th>R@50</th>
+              <th>HR@50</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>BM25</td>
+              <td><span class="method-tag lexical">Lexical</span></td>
+              <td>0.0706</td>
+              <td>0.1001</td>
+              <td>0.1037</td>
+              <td>0.1427</td>
+              <td>0.1564</td>
+              <td>0.2088</td>
+            </tr>
+            <tr>
+              <td>DocT5Query</td>
+              <td><span class="method-tag lexical">Lexical</span></td>
+              <td>0.0784</td>
+              <td>0.1098</td>
+              <td>0.1156</td>
+              <td>0.1594</td>
+              <td>0.1772</td>
+              <td>0.2381</td>
+            </tr>
+            <tr class="best-row">
+              <td><strong>DPR-SDE</strong></td>
+              <td><span class="method-tag embedding">Embedding</span></td>
+              <td><strong>0.0826</strong></td>
+              <td><strong>0.1210</strong></td>
+              <td><strong>0.1293</strong></td>
+              <td><strong>0.1814</strong></td>
+              <td><strong>0.2079</strong></td>
+              <td><strong>0.2769</strong></td>
+            </tr>
+            <tr class="second-row">
+              <td><u>DPR-ADE</u></td>
+              <td><span class="method-tag embedding">Embedding</span></td>
+              <td><u>0.0818</u></td>
+              <td><u>0.1184</u></td>
+              <td><u>0.1254</u></td>
+              <td><u>0.1745</u></td>
+              <td><u>0.2026</u></td>
+              <td><u>0.2709</u></td>
+            </tr>
+            <tr>
+              <td>DSI</td>
+              <td><span class="method-tag generative">Generative</span></td>
+              <td>0.0623</td>
+              <td>0.0965</td>
+              <td>0.0892</td>
+              <td>0.1344</td>
+              <td>0.1369</td>
+              <td>0.2018</td>
+            </tr>
+            <tr>
+              <td>LTRGR</td>
+              <td><span class="method-tag generative">Generative</span></td>
+              <td>0.0688</td>
+              <td>0.1049</td>
+              <td>0.0986</td>
+              <td>0.1477</td>
+              <td>0.1501</td>
+              <td>0.2184</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="bench-finding">
+        <span class="finding-icon">💡</span>
+        <p>Embedding-based retrieval methods outperform both lexical and generative methods. DPR-SDE with shared encoder achieves the best performance, consistent with prior findings on symmetric dual-encoder benefits.</p>
+      </div>
+    </div>
+
+    <!-- Ranking Tab -->
+    <div class="tab-content" id="tab-ranking">
+      <div class="bench-description">
+        <p>CTR prediction task evaluates ranking models. Metrics: <strong>Logloss</strong> and <strong>ROC-AUC</strong>.</p>
+      </div>
+      <div class="table-wrap">
+        <table class="bench-table">
+          <thead>
+            <tr>
+              <th>Method</th>
+              <th>Architecture</th>
+              <th>Logloss ↓</th>
+              <th>ROC-AUC ↑</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="best-row">
+              <td><strong>DNN</strong></td>
+              <td><span class="method-tag mlp">MLP</span></td>
+              <td><strong>0.1588</strong></td>
+              <td><u>0.6258</u></td>
+            </tr>
+            <tr>
+              <td>Wide &amp; Deep</td>
+              <td><span class="method-tag mlp">MLP+Memorization</span></td>
+              <td><u>0.1598</u></td>
+              <td>0.6217</td>
+            </tr>
+            <tr>
+              <td>DCN</td>
+              <td><span class="method-tag crossing">Feature Crossing</span></td>
+              <td>0.1611</td>
+              <td>0.6194</td>
+            </tr>
+            <tr>
+              <td>DCN-v2</td>
+              <td><span class="method-tag crossing">Feature Crossing</span></td>
+              <td>0.1603</td>
+              <td>0.6239</td>
+            </tr>
+            <tr class="second-row">
+              <td><u>DIN</u></td>
+              <td><span class="method-tag attention">Attention</span></td>
+              <td>0.1606</td>
+              <td><strong>0.6262</strong></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="bench-finding">
+        <span class="finding-icon">💡</span>
+        <p>DIN achieves the best AUC via attention-based user interest modeling. DNN achieves lowest Logloss due to its simplicity avoiding overfitting. Performance gaps are small, suggesting future gains will come from richer feature engineering.</p>
+      </div>
+    </div>
+
+    <!-- Relevance Tab -->
+    <div class="tab-content" id="tab-relevance">
+      <div class="bench-description">
+        <p>Relevance judgment task evaluates query-item matching. Metrics: <strong>ROC-AUC</strong> and <strong>PR-AUC</strong>.</p>
+      </div>
+      <div class="table-wrap">
+        <table class="bench-table">
+          <thead>
+            <tr>
+              <th>Model</th>
+              <th>Type</th>
+              <th>Model Size</th>
+              <th>ROC-AUC ↑</th>
+              <th>PR-AUC ↑</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>BGE-Base</td>
+              <td><span class="method-tag biencoder">Bi-Encoder</span></td>
+              <td>0.1B</td>
+              <td>0.7475</td>
+              <td>0.5791</td>
+            </tr>
+            <tr>
+              <td>BGE-Large</td>
+              <td><span class="method-tag biencoder">Bi-Encoder</span></td>
+              <td>0.32B</td>
+              <td>0.7531</td>
+              <td>0.6052</td>
+            </tr>
+            <tr>
+              <td>BERT-Chinese-Base</td>
+              <td><span class="method-tag crossencoder">Cross-Encoder</span></td>
+              <td>0.11B</td>
+              <td>0.7606</td>
+              <td>0.6041</td>
+            </tr>
+            <tr>
+              <td>BERT-Multilingual-Base</td>
+              <td><span class="method-tag crossencoder">Cross-Encoder</span></td>
+              <td>0.11B</td>
+              <td>0.7737</td>
+              <td>0.6383</td>
+            </tr>
+            <tr>
+              <td>XLM-RoBERTa-Base</td>
+              <td><span class="method-tag crossencoder">Cross-Encoder</span></td>
+              <td>0.27B</td>
+              <td>0.7941</td>
+              <td>0.6658</td>
+            </tr>
+            <tr>
+              <td>XLM-RoBERTa-Large</td>
+              <td><span class="method-tag crossencoder">Cross-Encoder</span></td>
+              <td>0.55B</td>
+              <td>0.8005</td>
+              <td><u>0.6756</uu></td>
+            </tr>
+            <tr>
+              <td>Llama3.2-1B</td>
+              <td><span class="method-tag llm">LLM</span></td>
+              <td>1.0B</td>
+              <td>0.7602</td>
+              <td>0.5927</td>
+            </tr>
+            <tr class="second-row">
+              <td><u>Llama3.2-3B</u></td>
+              <td><span class="method-tag llm">LLM</span></td>
+              <td>3.0B</td>
+              <td><u>0.8093</u></td>
+              <td>0.6696</td>
+            </tr>
+            <tr>
+              <td>Qwen3-0.6B</td>
+              <td><span class="method-tag llm">LLM</span></td>
+              <td>0.6B</td>
+              <td>0.7994</td>
+              <td>0.6524</td>
+            </tr>
+            <tr class="best-row">
+              <td><strong>Qwen3-1.7B</strong></td>
+              <td><span class="method-tag llm">LLM</span></td>
+              <td>1.7B</td>
+              <td><strong>0.8215</strong></td>
+              <td><strong>0.6966</strong></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="bench-finding">
+        <span class="finding-icon">💡</span>
+        <p>LLM-based generative classification achieves best performance. Qwen3-1.7B outperforms all baselines, demonstrating that models capturing fine-grained semantic relationships excel in relevance modeling. Qwen3-0.6B even surpasses Llama3.2-1B, showcasing superior parameter efficiency.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== DATA PREVIEW ========== -->
+<section id="data-preview" class="section section-light">
+  <div class="container">
+    <h2 class="section-title">💾 Data Preview</h2>
+    <p class="section-subtitle">Sample data from KuaiSearch demo files</p>
+
+    <div class="preview-tabs">
+      <button class="preview-tab-btn active" data-preview="users">Users</button>
+      <button class="preview-tab-btn" data-preview="items">Items</button>
+      <button class="preview-tab-btn" data-preview="recall">Recall</button>
+      <button class="preview-tab-btn" data-preview="ranking">Ranking</button>
+      <button class="preview-tab-btn" data-preview="relevance">Relevance</button>
+    </div>
+
+    <div class="preview-content active" id="preview-users">
+      <pre class="code-block"><code>{
+  "user_id": 33407, 
+  "gender": "M", 
+  "age_bucket": "31-40", 
+  "fre_country": "中国", 
+  "fre_province": "辽宁", 
+  "fre_city": "鞍山"
+}</code></pre>
+    </div>
+    <div class="preview-content" id="preview-items">
+      <pre class="code-block"><code>{
+  "item_id": 5096459, 
+  "item_title": "福利金钻绒床边地毯防尘免洗", 
+  "brand_id": 2, "brand_name": "其他/other", 
+  "seller_id": 2, "seller_name": "爱家家居地毯", 
+  "category_level1_id": 2, 
+  "category_level1_name": "家纺", 
+  "category_level2_id": 2, 
+  "category_level2_name": "地毯地垫", 
+  "category_level3_id": 1, 
+  "category_level3_name": "地毯"
+}</code></pre>
+    </div>
+    <div class="preview-content" id="preview-recall">
+      <pre class="code-block"><code>{
+  "user_id": 1, 
+  "session_id": 1, 
+  "impressed_item_ids": [38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 124, 125, 126, 127, 128, 129, 130, 131, 132, 133, 134, 135, 136, 137, 138, 139, 140, 141, 142, 143, 144, 145, 146, 147, 148, 149, 150, 151, 152, 153, 154, 155, 156, 157, 158, 159, 160, 161, 162, 163, 164, 165, 166, 167, 168, 169, 170, 171, 172, 173, 174, 175, 176, 177, 178, 179, 180, 181, 182, 183, 184, 185, 186, 187, 188, 189, 190, 191, 192, 193, 194, 195, 196, 197, 198, 199, 200, 201, 202, 203, 204, 205, 206, 207, 208, 209, 210, 211, 212, 213, 214, 215, 216, 217, 218, 219, 220, 221, 222, 223, 224, 225], 
+  "clicked_item_ids": [58, 63, 76, 80, 85, 92, 99, 100, 121, 122, 128, 136, 143, 157, 163, 213], 
+  "purchased_item_ids": [], 
+  "time_index": 384565, 
+  "query": "广场舞服装女高档洋气"
+}</code></pre>
+    </div>
+    <div class="preview-content" id="preview-ranking">
+      <pre class="code-block"><code>{
+  "user_id": 1, 
+  "session_id": 1, 
+  "user_fan_number": 9, 
+  "user_follow_number": 65, 
+  "time_index": 384565, 
+  "search_entrance": "mall", 
+  "recently_clicked_item_ids": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], 
+  "recently_purchased_item_ids": [21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 31, 37, 8, 31], 
+  "query": "广场舞服装女高档洋气", 
+  "target_item_id": 58, 
+  "target_item_price": 5990.0, 
+  "is_clicked": 1, 
+  "is_purchased": 0, 
+  "user_statistical_features": {"user_show_cnt_30d_hist": 0.0, "user_click_cnt_30d_hist": 0.0, "user_order_cnt_30d_hist": 0.0, "user_gmv_30d_hist": 0.0}, 
+  "target_item_statistical_features": {"item_show_cnt_30d_hist": 952.0, "item_click_cnt_30d_hist": 47.0, "item_order_cnt_30d_hist": 0.0}
+}</code></pre>
+    </div>
+    <div class="preview-content" id="preview-relevance">
+      <pre class="code-block"><code>{
+  "query": "芈姐家半身裙", 
+  "item_title": "液态棉后开衩半裙", 
+  "brand": "无品牌", 
+  "seller_name": "以晨服装搭配", 
+  "attr_value": "无品牌,常规,直筒,中腰,开衩,其他,简约风,不限季节,长裙,其他,2025年秋季", 
+  "score": 2
+}</code></pre>
+    </div>
+
+    <div class="download-section">
+      <h3>📥 Access the Dataset</h3>
+      <p>Demo data is available in the GitHub repository. The full dataset will be released after the review process.</p>
+      <div class="download-btns">
+        <a href="https://github.com/benchen4395/KuaiSearch" target="_blank" class="btn btn-primary">
+          <svg viewBox="0 0 16 16" width="18" height="18" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+          Download Data
+        </a>
+        <a href="https://arxiv.org/abs/2602.11518" target="_blank" class="btn btn-secondary">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          Read Full Paper
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== BIBTEX ========== -->
+<section id="bibtex" class="section section-dark">
+  <div class="container">
+    <h2 class="section-title light">📝 BibTeX Citation</h2>
+    <div class="bibtex-wrap">
+      <button class="copy-btn" id="copyBibtex" title="Copy to clipboard">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+        Copy
+      </button>
+      <pre id="bibtex-code"><code>@article{li2026kuaisearch,
+  title={KuaiSearch: A Large-Scale E-Commerce Search Dataset for Recall, Ranking, and Relevance},
+  author={Li, Yupeng and Chen, Ben and Cheng, Mingyue and Liu, Zhiding and Zhang, Xuxin and Lei, Chenyi and Ou, Wenwu},
+  journal={arXiv preprint arXiv:2602.11518},
+  year={2026}
+}
+</code></pre>
+    </div>
+  </div>
+</section>
+
+<!-- ========== FOOTER ========== -->
+<footer>
+  <div class="container footer-inner">
+    <div class="footer-logo">
+      <span class="logo-icon">🔍</span>
+      <span>KuaiSearch</span>
+    </div>
+    <div class="footer-links">
+      <a href="https://arxiv.org/abs/2602.11518" target="_blank">Paper</a>
+      <a href="https://github.com/benchen4395/KuaiSearch" target="_blank">GitHub</a>
+      <a href="mailto:liyupeng@mail.ustc.edu.cn">Contact</a>
+    </div>
+    <div class="footer-note">
+      Built at <a href="https://en.ustc.edu.cn/" target="_blank">USTC</a> &amp; <a href="https://www.kuaishou.com" target="_blank">Kuaishou Technology</a> · 2026
+    </div>
+  </div>
+</footer>
+
+<script src="static/js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,18 @@
+## data
+train_file: recall/data/train_dpr.json
+save_dir: ./model_signle
+
+## training
+base_model: google-bert/bert-base-chinese
+per_device_train_batch_size: 64
+per_device_eval_batch_size: 64
+adam_eps: 1.0e-8
+weight_decay: 0.0
+max_grad_norm: 2.0
+lr: 2.0e-5
+warmup_steps: 1237
+max_train_epochs: 40
+gradient_accumulation_steps: 1
+patience: 2
+seed: 42
+max_length: 64

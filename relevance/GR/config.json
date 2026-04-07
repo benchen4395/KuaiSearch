@@ -1,0 +1,20 @@
+{
+  "model_name_or_path": "meta-llama/Llama-3.2-3B",
+  "output_dir": "./model/Llama-3.2-3B",
+  "max_seq_length": 512,
+  "per_device_train_batch_size": 8,
+  "per_device_eval_batch_size": 8,
+  "gradient_accumulation_steps": 2,
+  "num_train_epochs": 20,
+  "learning_rate": 1e-4,
+  "warmup_ratio": 0.05,
+  "train_file": "relevance/data/rank.train.jsonl",
+  "validation_file": "relevance/data/rank.valid.jsonl",
+  "test_file": "relevance/data/rank.test.jsonl",
+  "use_lora": "True",
+  "lora_target_modules": "all_linear",
+  "save_strategy": "epoch",
+  "eval_strategy": "epoch",
+  "greater_is_better": false,
+  "metric_for_best_model": "loss"
+}

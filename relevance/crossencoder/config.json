@@ -1,0 +1,23 @@
+{
+  "model_name_or_path": "google-bert/bert-base-chinese",
+  "output_dir": "./model/bert-base-chinese",
+  "max_seq_length": 512,
+  "per_device_train_batch_size": 16,
+  "per_device_eval_batch_size": 16,
+  "gradient_accumulation_steps": 1,
+  "num_train_epochs": 20,
+  "learning_rate": 2e-5,
+  "warmup_ratio": 0.01,
+  "weight_decay": 1e-4,
+  "do_train": 1,
+  "do_eval": 1,
+  "do_predict": 1,
+  "train_file": "relevance/data/rank.train.jsonl",
+  "validation_file": "relevance/data/rank.valid.jsonl",
+  "test_file": "relevance/data/rank.test.jsonl",
+  "save_strategy": "epoch",
+  "eval_strategy": "epoch",
+  "greater_is_better": false,
+  "metric_for_best_model": "loss",
+  "use_fast_tokenizer": 0
+}

@@ -1,0 +1,8 @@
+#!/bin/bash
+python recall/BM25/bm25.py \
+  --corpus_file data/corpus.jsonl \
+  --queries_file recall/data/test.queries.tsv \
+  --qrels_file recall/data/test.qrels.tsv \
+  --index_name kuaisearch \
+  --top_k 100 \
+  --cutoffs 10 20 50 100

@@ -1,0 +1,64 @@
+# ========================
+# Jupyter Notebook
+# ========================
+.ipynb_checkpoints/
+*.ipynb
+
+# ========================
+# Python
+# ========================
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.egg-info/
+dist/
+build/
+.eggs/
+*.egg
+
+# ========================
+# Virtual environments
+# ========================
+.venv/
+venv/
+env/
+.env
+
+# ========================
+# Model checkpoints & weights
+# ========================
+*.bin
+*.pt
+*.pth
+*.ckpt
+*.safetensors
+checkpoints/
+checkpoint*/
+best_model/
+model/
+
+# ========================
+# Embeddings & large data files
+# ========================
+*.npy
+*.faiss
+doc_embedding/
+recall/data/embeddings/
+
+# ========================
+# Logs & outputs
+# ========================
+*.log
+nohup.out
+wandb/
+runs/
+
+# ========================
+# OS & editor
+# ========================
+.DS_Store
+.idea/
+.vscode/
+*.swp
+*.swo

@@ -9,6 +9,8 @@
 
 **KuaiSearch** is a large-scale e-commerce search dataset and full-stack benchmark system built from real user search interactions on the [Kuaishou](https://www.kuaishou.com) platform. It covers the three core stages of modern industrial search pipelines: **Recall**, **Relevance**, and **Ranking**. Each stage provides multiple algorithmic baselines, allowing researchers to systematically evaluate and compare methods
 
+## ! All the codes and datasets are now public !
+
 > 📄 **Paper**: [KuaiSearch: A Large-Scale E-Commerce Search Dataset for Recall, Ranking, and Relevance](https://arxiv.org/abs/2602.11518)
 > Yupeng Li\*, Ben Chen\*, Mingyue Cheng, Zhiding Liu, Xuxin Zhang, Chenyi Lei, Wenwu Ou
 >

@@ -82,7 +82,7 @@ KuaiSearch is, to the best of our knowledge, **the largest e-commerce search dat
 ### Requirements
 
 - Python 3.8+
-- CUDA 11.7+ (recommended for GPU training)
+- CUDA 11.7+
 
 ### Install Dependencies
 

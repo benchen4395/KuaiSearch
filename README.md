@@ -121,7 +121,9 @@ Or manually download from: **https://huggingface.co/datasets/benchen4395/KuaiSea
 ## Usage
 
 > ⚠️ All commands must be run from the `KuaiSearch/` project root.
-> For consistency, `items.jsonl` should be renamed to `corpus.jsonl` before running.
+>
+> `items.jsonl` should be renamed to `corpus.jsonl` before running.
+
 ---
 
 ### Recall

@@ -1,7 +1,7 @@
 import json
 
-INPUT_PATH = "train_dpr.json"           # Input: Your DPR training data (JSON list)
-OUTPUT_PATH = "docTquery_train_data.jsonl"  # Output: Converted to JSONL (one sample per line)
+INPUT_PATH = "recall/data/train_dpr.json"           # Input: Your DPR training data (JSON list)
+OUTPUT_PATH = "recall/data/docTquery_train_data.jsonl"  # Output: Converted to JSONL (one sample per line)
 
 PROMPT_PREFIX = "为下面的商品标题生成一个用户搜索query："
 

@@ -6,7 +6,7 @@ from tqdm import tqdm
 from einops import rearrange
 from einops import pack
 # load title embedding
-data = np.load('embeddings/item_emb_512.npy')
+data = np.load('recall/data/embeddings/item_emb_512.npy')
 num, dim = data.shape
 print(data.shape)
 batch = 16
@@ -30,7 +30,7 @@ def faiss_kmeans():
         print(data.shape)
     codes = np.array(codes)
     print(centroids.shape)
-    np.save(f'embeddings/codes_512{clusters}_{datalen}.npy', codes)
+    np.save(f'recall/data/embeddings/codes_512{clusters}_{datalen}.npy', codes)
 
 
 
@@ -41,7 +41,7 @@ def code_check():
     from einops import rearrange, pack
     from tqdm import tqdm
     codes = torch.tensor(
-        np.load(f'embeddings/codes_512{clusters}_{datalen}.npy')).cuda().transpose(1,0)
+        np.load(f'recall/data/embeddings/codes_512{clusters}_{datalen}.npy')).cuda().transpose(1,0)
     print(codes.shape)
     num = codes.shape[0]
     dedup_dim = []
@@ -61,7 +61,7 @@ def code_check():
     usage_list = []
     max_duplicates = corpus_ids[:, -1].max()
     duplicates_rate = (corpus_ids[:, -1] > 0).sum() / corpus_ids.shape[0]
-    torch.save(corpus_ids, 'item_code.pt')
+    torch.save(corpus_ids, 'recall/data/embeddings/item_code.pt')
 
 
 

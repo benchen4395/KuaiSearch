@@ -29,11 +29,7 @@ def build_passage_text(doc: dict):
 
 def normalize_document(document: str):
     document = document.replace("\n", " ").replace("’", "'")
-    if document.startswith('"'):
-        document = document[1:]
-    if document.endswith('"'):
-        document = document[:-1]
-    return document
+    return document.strip('"')
     
 def generate_embeddings(args):
     distributed_state = PartialState()

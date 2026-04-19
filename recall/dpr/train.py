@@ -142,14 +142,13 @@ class DPRDataset(torch.utils.data.Dataset):
         query_inputs = tokenizer(queries,max_length=args.max_length,padding=True,truncation=True,return_tensors='pt')
         
         # prepare document input
-        ## select the first positive document
+        ## random choose one positive document
         ## passage = title + document
         positive_passages = [random.choice(x['positive_item']) for x in samples]
         positive_docs = [x['text'] for x in positive_passages]
 
-            ## random choose one negative document
-        negative_passages = [ random.choice(x['negative_item']) 
-                                 for x in samples ]
+        ## random choose one negative document
+        negative_passages = [random.choice(x['negative_item']) for x in samples]
 
         negative_docs = [x["text"] for x in negative_passages]
         docs = positive_docs + negative_docs

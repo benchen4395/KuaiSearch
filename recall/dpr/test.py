@@ -223,7 +223,7 @@ def parse_args():
     parser.add_argument("--num_shards", type=int, default=8,
                         help="doc embedding 分成多少个 shard_n.npy")
     parser.add_argument("--embedding_dir",default="./doc_embedding_s")
-    parser.add_argument("--pretrained_model_path",default="./model_signle/best/encoder")
+    parser.add_argument("--pretrained_model_path",default="./model_single/best/encoder")
     parser.add_argument("--top_k", type=int, default=100)
     args = parser.parse_args()
     return args

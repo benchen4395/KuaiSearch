@@ -5,21 +5,24 @@ from sklearn.metrics import pairwise_distances
 from tqdm import tqdm
 from einops import rearrange
 from einops import pack
+
 # load title embedding
-data = np.load('embeddings/item_emb_512.npy')
+data = np.load('recall/data/embeddings/item_emb_512.npy')
 num, dim = data.shape
 print(data.shape)
 batch = 16
-clusters = [512,512,512]
-datalen=512*4
+clusters = [512, 512, 512]
+cluster_str = "_".join(map(str, clusters))
+datalen = 512 * 4
+
+
 def faiss_kmeans():
     import faiss
     global data
     codes = []
     centroids_all = []
     for k in clusters:
-        kmeans = faiss.Kmeans(
-            d=dim, k=k, niter=50, verbose=True,max_points_per_centroid=datalen) # 
+        kmeans = faiss.Kmeans(d=dim, k=k, niter=50, verbose=True, max_points_per_centroid=datalen)
         kmeans.train(data)
         centroids = kmeans.centroids
         _, labels = kmeans.index.search(data, 1)
@@ -30,25 +33,26 @@ def faiss_kmeans():
         print(data.shape)
     codes = np.array(codes)
     print(centroids.shape)
-    np.save(f'embeddings/codes_512{clusters}_{datalen}.npy', codes)
-
+    np.save(f'recall/data/embeddings/codes_512_{cluster_str}_{datalen}.npy', codes)
 
 
 def _get_hits(query, key):
     return (rearrange(key, "b d -> 1 b d") == rearrange(query, "b d -> b 1 d")).all(axis=-1)
+
+
 def code_check():
     import torch
     from einops import rearrange, pack
     from tqdm import tqdm
     codes = torch.tensor(
-        np.load(f'embeddings/codes_512{clusters}_{datalen}.npy')).cuda().transpose(1,0)
+        np.load(f'recall/data/embeddings/codes_512_{cluster_str}_{datalen}.npy')).cuda().transpose(1, 0)
     print(codes.shape)
     num = codes.shape[0]
     dedup_dim = []
     itr_codes = num // batch + 1 if num % batch else num // batch
     for i in tqdm(range(itr_codes)):
-        code_query = codes[i*batch:(i+1)*batch]
-        code_key = codes[:i*batch]
+        code_query = codes[i * batch:(i + 1) * batch]
+        code_key = codes[:i * batch]
         is_hit = _get_hits(code_query, code_query)
         hits = torch.tril(is_hit, diagonal=-1).sum(axis=-1)
         if i:
@@ -61,10 +65,7 @@ def code_check():
     usage_list = []
     max_duplicates = corpus_ids[:, -1].max()
     duplicates_rate = (corpus_ids[:, -1] > 0).sum() / corpus_ids.shape[0]
-    torch.save(corpus_ids, 'item_code.pt')
-
-
-
+    torch.save(corpus_ids, 'recall/data/embeddings/item_code.pt')
 
 
 if __name__ == '__main__':

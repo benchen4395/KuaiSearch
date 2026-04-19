@@ -22,8 +22,7 @@ def faiss_kmeans():
     codes = []
     centroids_all = []
     for k in clusters:
-        kmeans = faiss.Kmeans(
-            d=dim, k=k, niter=50, verbose=True, max_points_per_centroid=datalen)  #
+        kmeans = faiss.Kmeans(d=dim, k=k, niter=50, verbose=True, max_points_per_centroid=datalen)
         kmeans.train(data)
         centroids = kmeans.centroids
         _, labels = kmeans.index.search(data, 1)

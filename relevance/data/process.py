@@ -7,6 +7,7 @@ random.seed(42)
 
 # Input/output configuration
 INPUT_PATH = "data/relevance.jsonl"
+SAVE_DIR = "relevance/data"
 OUTPUT_PREFIX = "rank"      # Output prefix: rank.train.jsonl / rank.valid.jsonl / rank.test.jsonl
 TEST_EVERY = 10             # Sample 1 out of every N records for test set (1/10)
 VALIDATION_FRACTION = 0.01  # 1% of training data for validation set
@@ -49,9 +50,9 @@ def main():
     """Main processing function: Split relevance data into train/validation/test sets with text construction"""
     # Initialize file paths
     in_path = Path(INPUT_PATH)
-    train_path = Path(f"{OUTPUT_PREFIX}.train.jsonl")
-    valid_path = Path(f"{OUTPUT_PREFIX}.valid.jsonl")  # New validation set
-    test_path = Path(f"{OUTPUT_PREFIX}.test.jsonl")
+    train_path = Path(f"{SAVE_DIR}/{OUTPUT_PREFIX}.train.jsonl")
+    valid_path = Path(f"{SAVE_DIR}/{OUTPUT_PREFIX}.valid.jsonl")  # New validation set
+    test_path = Path(f"{SAVE_DIR}/{OUTPUT_PREFIX}.test.jsonl")
 
     # Initialize counters
     cnt = 0

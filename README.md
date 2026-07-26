@@ -12,7 +12,7 @@
 ## ! All the codes and datasets are now public !
 
 > 📄 **Paper**: [KuaiSearch: A Large-Scale E-Commerce Search Dataset for Recall, Ranking, and Relevance](https://arxiv.org/abs/2602.11518)
-> Yupeng Li\*, Ben Chen\*, Mingyue Cheng, Zhiding Liu, Xuxin Zhang, Chenyi Lei, Wenwu Ou
+> Yupeng Li\*, Ben Chen\*, Mingyue Cheng, Zhiding Liu, Xuxin Zhang, Chenyi Lei
 >
 > 🤗 **Dataset**: [huggingface.co/datasets/benchen4395/KuaiSearch](https://huggingface.co/datasets/benchen4395/KuaiSearch)
 

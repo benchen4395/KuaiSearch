@@ -2,7 +2,7 @@
 
 
 <div align="center">
-  <img src="https://img.shields.io/badge/License-MIT-green" alt="License">
+  <img src="https://img.shields.io/badge/License-CC%20BY%204.0-blue" alt="License">
   <a href="https://arxiv.org/abs/2602.11518"><img src="https://img.shields.io/badge/arXiv-2602.11518-b31b1b?logo=arxiv" alt="arXiv"></a>
   <a href="https://huggingface.co/datasets/benchen4395/KuaiSearch"><img src="https://img.shields.io/badge/🤗%20Dataset-KuaiSearch-blue" alt="HuggingFace Dataset"></a>
 </div>

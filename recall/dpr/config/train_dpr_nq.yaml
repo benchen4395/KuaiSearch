@@ -1,6 +1,6 @@
 ## data
 train_file: recall/data/train_dpr.json
-save_dir: ./model_signle
+save_dir: ./model_single
 
 ## training
 base_model: google-bert/bert-base-chinese
